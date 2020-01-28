@@ -6,7 +6,6 @@ from linkedlist import LinkedList
 # Implement LinkedQueue below, then change the assignment at the bottom
 # to use this Queue implementation to verify it passes all tests
 class LinkedQueue(object):
-
     def __init__(self, iterable=None):
         """Initialize this queue and enqueue the given items, if any."""
         # Initialize a new linked list to store the items
@@ -47,7 +46,6 @@ class LinkedQueue(object):
 # Implement ArrayQueue below, then change the assignment at the bottom
 # to use this Queue implementation to verify it passes all tests
 class ArrayQueue(object):
-
     def __init__(self, iterable=None):
         """Initialize this queue and enqueue the given items, if any."""
         # Initialize a new list (dynamic array) to store the items
