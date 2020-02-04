@@ -1,4 +1,5 @@
 # CS 1.3: Core Data Structures & Algorithms
+[![Build Status](https://travis-ci.com/escofresco/makeschool_cs13_core_ds.svg?branch=master)](https://travis-ci.com/escofresco/makeschool_cs13_core_ds)
 
 ## Course Description
 
