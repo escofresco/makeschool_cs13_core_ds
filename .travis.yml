@@ -2,4 +2,5 @@ language: python
 script:
     - pytest bases_test.py \
         palindromes_test.py \
-        search_test.py
+        search_test.py \
+        recursion_test.py
