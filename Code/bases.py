@@ -12,7 +12,17 @@ import string
 # string.printable is digits + ascii_letters + punctuation + whitespace
 
 
-def decode(digits, base):
+def decode(
+        digits,
+        base,
+        char_to_digit={
+            **{str(i): i
+               for i in range(10)},
+            **{
+                chr(i + ord('a')): i + 10
+                for i in range(ord('z') + 1 - ord('a'))
+            }
+        }):
     """Decode given digits in given base to number in base 10.
     digits: str -- string representation of number (in given base)
     base: int -- base of given number
@@ -20,17 +30,22 @@ def decode(digits, base):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
 
-    char_to_digit = {str(i): i for i in range(10)}
-    char_to_digit.update(
-        {chr(i + ord('a')): i + 10
-         for i in range(ord('z') + 1 - ord('a'))})
-
     return reduce(
         lambda x, y: (x[0] - 1, x[1] + char_to_digit[y] * base**(x[0])),
         digits, (len(digits) - 1, 0))[1]
 
 
-def encode(number, base):
+def encode(
+        number,
+        base,
+        digit_to_char={
+            **{i: str(i)
+               for i in range(10)},
+            **{
+                i + 10: chr(i + ord('a'))
+                for i in range(ord('z') + 1 - ord('a'))
+            }
+        }):
     """Encode given number in base 10 to digits in given base.
     number: int -- integer representation of number (in base 10)
     base: int -- base to convert to
@@ -43,7 +58,8 @@ def encode(number, base):
 
     while number > 0:
         number, remainder = divmod(number, base)
-        res.appendleft(str(remainder))
+        # res.appendleft(str(remainder))
+        res.appendleft(digit_to_char.get(remainder))
     return ''.join(res)
 
 
@@ -56,7 +72,12 @@ def convert(digits, base1, base2):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base1 <= 36, 'base1 is out of range: {}'.format(base1)
     assert 2 <= base2 <= 36, 'base2 is out of range: {}'.format(base2)
-    return encode(decode(digits, base1), base2)
+    char_to_digit = {str(i): i for i in range(10)}
+    char_to_digit.update(
+        {chr(i + ord('a')): i + 10
+         for i in range(ord('z') + 1 - ord('a'))})
+    digit_to_char = {v: k for k, v in char_to_digit.items()}
+    return encode(decode(digits, base1, char_to_digit), base2, digit_to_char)
 
 
 def main():
