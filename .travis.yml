@@ -1,5 +1,6 @@
 language: python
 script:
+    - cd Code
     - pytest bases_test.py \
         palindromes_test.py \
         search_test.py \
