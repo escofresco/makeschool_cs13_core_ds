@@ -13,22 +13,56 @@ def is_palindrome(text):
     # implement is_palindrome_iterative and is_palindrome_recursive below, then
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    return is_palindrome_iterative(text)
+    return is_palindrome_recursive(text)
     # return is_palindrome_recursive(text)
 
+def next_letter(text, start, stop, step):
+    """Steps through text, finding letters along the way.
+
+    Yields:
+        (int) index of next letter in text."""
+    for i in range(start, stop, step):
+        if (letter := text[i]).isalpha():
+            yield i
 
 def is_palindrome_iterative(text):
-    # TODO: implement the is_palindrome function iteratively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_iterative
-    # to verify that your iterative implementation passes all tests
+    left_it = next_letter(text, 0, len(text), 1)
+    right_it = next_letter(text, len(text)-1, -1, -1)
+    try:
+        left_idx = next(left_it)
+        right_idx = next(right_it)
+    except StopIteration:
+        return True
+    while left_idx < right_idx:
+        if text[left_idx].lower() != text[right_idx].lower():
+            return False
+        left_idx = next(left_it)
+        right_idx = next(right_it)
+    return True
 
 
 def is_palindrome_recursive(text, left=None, right=None):
-    # TODO: implement the is_palindrome function recursively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_recursive
-    # to verify that your iterative implementation passes all tests
+    """Recursive function for determining if text is a palindrome."""
+    if left is right is None:
+        ## initialize left and right indices
+        return is_palindrome_recursive(text, left=0, right=len(text)-1)
+    if left >= right:
+        ## Base case: left and right indices have overlapped, text must be a
+        ## palindrome
+        return True
+    if (text[left].isalpha()
+        and text[right].isalpha()
+        and text[left].lower() != text[right].lower()):
+        ## left and right letters aren't equal; text isn't a palindrome
+        return False
+    if not text[left].isalpha():
+        ## left character isn't a letter; move left index to the right by one
+        return is_palindrome_recursive(text, left+1, right)
+    if not text[right].isalpha():
+        ## right character isn't a letter; move right index to the left by one
+        return is_palindrome_recursive(text, left, right-1)
+    # so far, text is a palindrome
+    return is_palindrome_recursive(text, left+1, right-1)
 
 
 def main():
