@@ -1,7 +1,9 @@
 language: python
+python:
+    - "3.8"
 script:
     - cd Code
-    - pytest bases_test.py\
-        palindromes_test.py\
-        search_test.py\
-        recursion_test.py
+    - pytest bases_test.py
+    - pytest palindromes_test.py
+    - pytest search_test.py
+    - pytest recursion_test.py
