@@ -19,7 +19,6 @@ class LinkedList(object):
         self.head = None  # First node
         self.tail = None  # Last node
         self.size = 0  # Number of nodes
-        self._length = 0
         # Append the given items
         if iterable is not None:
             for item in iterable:
@@ -42,8 +41,10 @@ class LinkedList(object):
         result = []  # Constant time to create a new list
         # Start at the head node
         node = self.head  # Constant time to assign a variable reference
-        # Loop until the node is None, which is one node too far past the tail
+
         while node is not None:  # Always n iterations because no early exit
+            ## Loop until the node is None, which is one node too far past the
+            ## tail
             # Append this node's data to the results list
             result.append(node.data)  # Constant time to append to a list
             # Skip to the next node
@@ -58,7 +59,7 @@ class LinkedList(object):
     def length(self):
         """Return the length of this linked list by traversing its nodes.
         Best and worst case running time: ??? under what conditions? [TODO]"""
-        return self._length
+        return self.size
 
     def get_at_index(self, index):
         """Return the item at the given index in this linked list, or
@@ -68,7 +69,12 @@ class LinkedList(object):
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node at the given index and return its data
+        cur_index = 0
+        cur_node = self.head
+        while cur_index < index:
+            cur_index += 1
+            cur_node = cur_node.next
+        return cur_node
 
     def insert_at_index(self, index, item):
         """Insert the given item at the given index in this linked list, or
@@ -79,7 +85,7 @@ class LinkedList(object):
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
         # TODO: Find the node before the given index and insert item after it
-        self._length += 1
+        self.size += 1
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
@@ -95,7 +101,7 @@ class LinkedList(object):
             self.tail.next = new_node
         # Update tail to new node regardless
         self.tail = new_node
-        self._length += 1
+        self.size += 1
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
@@ -111,7 +117,7 @@ class LinkedList(object):
             new_node.next = self.head
         # Update head to new node regardless
         self.head = new_node
-        self._length += 1
+        self.size += 1
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
@@ -181,7 +187,7 @@ class LinkedList(object):
                     previous.next = None
                 # Update tail to the previous node regardless
                 self.tail = previous
-            self._length -= 1
+            self.size -= 1
         raise ValueError('Item not found: {}'.format(item))
 
 
