@@ -64,6 +64,19 @@ def is_palindrome_recursive(text, left=None, right=None):
     # so far, text is a palindrome
     return is_palindrome_recursive(text, left+1, right-1)
 
+def permutations(arr):
+    def recur(i):
+        if i == len(arr):
+            res.append(arr[:])
+        for j in range(len(arr)):
+            arr[i], arr[j] = arr[j], arr[i]
+            recur(i+1)
+            arr[i], arr[j] = arr[j], arr[i]
+    res = []
+    recur(0)
+    return res
+
+
 
 def main():
     import sys
