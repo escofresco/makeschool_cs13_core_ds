@@ -13,7 +13,6 @@ def linear_search_iterative(array, item):
     for index, value in enumerate(array):
         if item == value:
             return index  # found
-    return None  # not found
 
 
 def linear_search_recursive(array, item, index=0):
@@ -47,11 +46,10 @@ def binary_search_iterative(array, item):
             lo = mid + 1
         else:
             hi = mid - 1
-    return None
 
 
 def binary_search_recursive(array, item, left=0, right=None):
-    
+
     if right is None:
         right = len(array) - 1
 
