@@ -128,8 +128,7 @@ class LinkedList(object):
                 return node.data  # Constant time to return data
             # Skip to the next node
             node = node.next  # Constant time to reassign a variable
-        # We never found data satisfying quality, but have to return something
-        return None  # Constant time to return None
+        # We never found data satisfying quality, so return None
 
     def replace(self, old_item, new_item):
         """Replace the given old_item in this linked list with given new_item
@@ -183,9 +182,7 @@ class LinkedList(object):
                 # Update tail to the previous node regardless
                 self.tail = previous
             self._length -= 1
-        else:
-            # Otherwise raise an error to tell the user that delete has failed
-            raise ValueError('Item not found: {}'.format(item))
+        raise ValueError('Item not found: {}'.format(item))
 
 
 def test_linked_list():
