@@ -7,15 +7,6 @@ def contains(text, pattern):
     return find_index(text, pattern) is not None
 
 
-def pattern_matches_it(it, pattern):
-    pattern_it = iter(pattern)
-    next(pattern_it)
-    for target_char, (_, char) in zip(pattern_it, it):
-        if target_char != char:
-            return False
-    return True
-
-
 def find_index(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
     or None if not found."""
