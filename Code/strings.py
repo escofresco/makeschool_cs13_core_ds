@@ -15,12 +15,7 @@ def find_index(text, pattern):
 
     if not len(pattern):
         return 0
-    # it = iter(enumerate(text))
-    #
-    # for i, char in it:
-    #     if char == pattern[0] and pattern_matches_it(it, pattern):
-    #         ## first letter of pattern matches char, check the rest of pattern
-    #         return i
+
     for i in range(len(text)):
         for j, pat_char in enumerate(pattern):
             if text[i + j] != pat_char:
@@ -39,6 +34,7 @@ def find_all_indexes(text, pattern):
         return list(range(len(text)))
     indexes = []
     i = 0
+    
     while i <= len(text) - len(pattern):
         for j, char in enumerate(pattern):
             if text[i + j] != char:
