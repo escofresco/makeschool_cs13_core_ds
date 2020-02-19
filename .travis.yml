@@ -10,5 +10,6 @@ script:
     - coverage run -m pytest search_test.py
     - coverage run -m pytest recursion_test.py
     - coverage run -m pytest strings_test.py
+    - coverage run -m pytest linkedlist_test.py
 after_success:
     - bash <(curl -s https://codecov.io/bash)
