@@ -166,7 +166,7 @@ class LinkedList(object):
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
-        Best case running time: Omega(N) when old_item is near the head.
+        Best case running time: Omega(1) when old_item is near the head.
         Worst case running time: O(N) when old_item is near the end."""
         # Start at the head node
         node = self.head
@@ -209,6 +209,26 @@ class LinkedList(object):
             self.size -= 1
             return
         raise ValueError('Item not found: {}'.format(item))
+
+    def pop_left(self):
+        """Pop the head element."""
+        if self.is_empty():
+            raise ValueError("List is empty.")
+        head = self.head
+        new_head = self.head.next
+        self.head = new_head
+        self.size -= 1
+
+        if self.head is None or self.head.next is None:
+            # Length is <= 1
+            self.tail = self.head
+        return head.data
+
+    def head_data(self):
+        """Get the data of head element."""
+        if not self.is_empty():
+            return self.head.data
+
 
 
 def test_linked_list():

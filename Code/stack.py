@@ -29,41 +29,25 @@ class LinkedStack(object):
 
     def push(self, item):
         """Insert the given item on the top of this stack.
-        Running time: O(???) – Why? [TODO]"""
-        self.list.append(item)
+        Running time: O(1) since creating a pointer to the new item."""
+        self.list.prepend(item)
 
     def peek(self):
         """Return the item on the top of this stack without removing it,
         or None if this stack is empty."""
         try:
-            return self.list.get_at_index(self.list.size - 1)
+            return self.list.get_at_index(0)
         except:
             pass
 
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: """
+        Running time: O(1) since deleting head."""
+        if self.is_empty():
+            raise ValueError("List is empty.")
+        return self.list.pop_left()
 
-        if self.list.is_empty():
-            raise ValueError("stack is empty.")
-        elif self.list.length() == 1:
-            self.list.size -= 1
-            tail = self.list.tail
-            self.list.head = self.list.tail = None
-            return tail.data
-        tail = self.list.tail
-        cur = self.list.head
-
-        while cur.next is not tail:
-            cur = cur.next
-        self.list.tail = cur
-        self.list.tail.next = None
-
-        if cur is self.list.head:
-            self.list.head = self.list.tail
-        self.list.size -= 1
-        return tail.data
 
 
 # Implement ArrayStack below, then change the assignment at the bottom
@@ -84,27 +68,32 @@ class ArrayStack(object):
 
     def is_empty(self):
         """Return True if this stack is empty, or False otherwise."""
-        # TODO: Check if empty
+        return self.length() == 0
 
     def length(self):
         """Return the number of items in this stack."""
-        # TODO: Count number of items
+        return len(self.list)
 
     def push(self, item):
         """Insert the given item on the top of this stack.
-        Running time: O(???) – Why? [TODO]"""
-        # TODO: Insert given item
+        Running time:   O(1) amortized since more memory is occasionally
+                        allocated."""
+        self.list.append(item)
 
     def peek(self):
         """Return the item on the top of this stack without removing it,
         or None if this stack is empty."""
-        # TODO: Return top item, if any
+        if len(self.list):
+            return self.list[-1]
 
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: O(???) – Why? [TODO]"""
-        # TODO: Remove and return top item, if any
+        Running time:   O(1) because deleting the last item from a list just
+                        adds an extra spot to the right in memory."""
+        if not self.length():
+            raise ValueError("Stack is empty.")
+        return self.list.pop()
 
 
 # Implement LinkedStack and ArrayStack above, then change the assignment below
