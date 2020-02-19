@@ -11,5 +11,7 @@ script:
     - coverage run -m pytest recursion_test.py
     - coverage run -m pytest strings_test.py
     - coverage run -m pytest linkedlist_test.py
+    - coverage run -m pytest stack_test.py
+    - coverage run -m pytest queue_test.py
 after_success:
     - bash <(curl -s https://codecov.io/bash)
