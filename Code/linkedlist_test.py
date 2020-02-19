@@ -177,6 +177,22 @@ class LinkedListTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             ll.delete('X')  # item not in list
 
+    def test_pop_left_edges(self):
+        ll = LinkedList()
+        try:
+            ll.pop_left()
+        except Exception as e:
+            assert type(e) is ValueError
+
+    def test_pop_left(self):
+        ll = LinkedList(['A', 'B', 'C'])
+        res = ll.pop_left()
+        assert res == 'A'
+        res = ll.pop_left()
+        assert res == 'B'
+        res = ll.pop_left()
+        assert res == 'C'
+
 
 if __name__ == '__main__':
     unittest.main()
