@@ -5,6 +5,6 @@ install:
     - pip install coverage
 script:
     - cd Code
-    - coverage run -m pytest bases_test.py palindromes_test.py search_test.py recursion_test.py strings_test.py linkedlist_test.py stack_test.py queue_test.py
+    - coverage run -m pytest bases_test.py palindromes_test.py search_test.py recursion_test.py strings_test.py linkedlist_test.py stack_test.py queue_test.py hashtable_test.py
 after_success:
     - bash <(curl -s https://codecov.io/bash)
