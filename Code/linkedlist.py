@@ -33,7 +33,7 @@ class LinkedList(object):
         """Return a string representation of this linked list."""
         return 'LinkedList({!r})'.format(self.items())
 
-    def items(self, list_obj=False):
+    def items(self):
         """Return a list of all items in this linked list.
         Best and worst case running time: Theta(n) for n items in the list
         because we always need to loop through all n nodes."""
