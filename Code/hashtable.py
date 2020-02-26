@@ -1,4 +1,5 @@
 #!python
+from copy import deepcopy
 
 from linkedlist import LinkedList
 
@@ -26,7 +27,7 @@ class HashTable(object):
     def load_factor(self):
         """Return the load factor, the ratio of number of entries to buckets.
         Best and worst case running time: ??? under what conditions? [TODO]"""
-        return self.size / len(self.buckets)
+        return self.length() / len(self.buckets)
 
     def keys(self):
         """Return a list of all keys in this hash table.
@@ -110,6 +111,7 @@ class HashTable(object):
             # In this case, the given key's value is being updated
             # Remove the old key-value entry from the bucket first
             bucket.delete(entry)
+            self.size -= 1
         # Insert the new key-value entry into the bucket in either case
         bucket.append((key, value))
         if self.load_factor() > .75:
@@ -144,11 +146,12 @@ class HashTable(object):
         # Option to reduce size if buckets are sparsely filled (low load factor)
         elif new_size == 0:
             new_size = len(self.buckets) / 2  # Half size
-        old_buckets = self.buckets[:]
+        old_buckets = deepcopy(self.buckets)
         self.buckets = [LinkedList() for _ in range(new_size)]
         for ll in old_buckets:
             for item in ll.items():
-                self.set(item.data[0], item.data[1])
+                self.set(item[0], item[1])
+                self.size -= 1
 
 
 def test_hash_table():
