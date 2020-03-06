@@ -1,4 +1,5 @@
 import collections
+import itertools
 import sys
 import time
 
@@ -45,10 +46,22 @@ def slow_possible_words_for_jumble(words, jumble):
 
 if __name__ == "__main__":
     """Pass a jumbled word as a command line argument"""
+    if len(sys.argv) < 2:
+        ## A jumble wasn't passed
+        # print class solution
+        with open("/usr/share/dict/words", "r") as words_file:
+            for jumble in ("laisa", "laurr", "bureek", "prouot"):
+                words_file, words = itertools.tee(words_file) # make copy of file
+                print(f"jumble: {jumble} "
+                      f"possible words: "
+                      f"{tuple(slow_possible_words_for_jumble(words, jumble))}")
+        sys.exit(0)
+
     ##                                                                        ##
     ## ~~~~~~~~~~~~~~~~~~~~~~~~ With histograms: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
     with open("/usr/share/dict/words", "r") as words_file:
         print(tuple(possible_words_for_jumble(words_file, sys.argv[1])))
+
 
     ##                                                                        ##
     ## ~~~~~~~~~~~~~~~~~~~~~~~~~ In one line: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
