@@ -362,17 +362,6 @@ class BinarySearchTreeTest(unittest.TestCase):
         bst.delete('A')
         assert bst.items_in_order() == ['B', 'C', 'E']
 
-        ## Delete node with two direct children
-        bst = BinarySearchTree(['D', 'B', 'A', 'C'])
-
-        bst.delete('B')
-        assert bst.items_in_order() == ['A', 'C', 'D', 'E']
-
-
-
-
-
-
 
 if __name__ == '__main__':
     unittest.main()
