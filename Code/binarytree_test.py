@@ -181,7 +181,7 @@ class BinarySearchTreeTest(unittest.TestCase):
         assert tree.root.data == 2
         assert tree.root.left.data == 1
         assert tree.root.right.data == 3
-        # TODO: Test structure of tree after each deletion
+        # Test structure of tree after each deletion
         # tree.delete(2)
         # assert tree.root.data == ...
         # assert tree.root.left is ...
@@ -274,6 +274,104 @@ class BinarySearchTreeTest(unittest.TestCase):
         tree = BinarySearchTree(items)
         # Ensure the level-order traversal of tree items is ordered correctly
         assert tree.items_level_order() == [4, 2, 6, 1, 3, 5, 7]
+
+    @unittest.skip("suppress errors")
+    def test_insert_duplicate(self):
+        bst = BinarySearchTree()
+        bst.insert('A')
+        assert bst.items_in_order() == ['A']
+        bst.insert('A')
+        assert bst.items_in_order() == ['A']
+        bst = BinarySearchTree()
+        bst.insert('B')
+        assert bst.items_in_order() == ['A', 'B']
+        bst.insert('A')
+        assert bst.items_in_order() == ['A', 'B']
+        bst.insert('Z')
+        assert bst.items_in_order() == ['A', 'B', 'Z']
+        bst.insert('F')
+        assert bst.items_in_order() == ['A', 'B', 'F', 'Z']
+        bst.insert('Z')
+        assert bst.items_in_order() == ['A', 'B', 'Z']
+
+    def test_insert_duplicate_monotonic(self):
+        bst = BinarySearchTree()
+        bst.insert('A')
+        assert bst.items_in_order() == ['A']
+        bst.insert('A')
+        assert bst.items_in_order() == ['A']
+        bst.insert('B')
+        assert bst.items_in_order() == ['A', 'B']
+        bst.insert('C')
+        assert bst.items_in_order() == ['A', 'B', 'C']
+        bst.insert('A')
+        assert bst.items_in_order() == ['A', 'B', 'C']
+        bst.insert('B')
+        assert bst.items_in_order() == ['A', 'B', 'C']
+        bst.insert('C')
+        assert bst.items_in_order() == ['A', 'B', 'C']
+        bst.insert('D')
+        assert bst.items_in_order() == ['A', 'B', 'C', 'D']
+
+    def test_eq_edges(self):
+        assert BinarySearchTree() == BinarySearchTree()
+        assert BinarySearchTree([]) == BinarySearchTree(())
+        assert BinarySearchTree([1,1,1,1,1]) == BinarySearchTree((1,))
+
+        assert BinarySearchTree() != BinarySearchTree((1,2,3))
+        assert BinarySearchTree([]) != BinarySearchTree((1,2,3))
+        assert BinarySearchTree([1,2,3]) != BinarySearchTree(())
+
+    def test_eq(self):
+        assert BinarySearchTree({1,2,3}) == BinarySearchTree({1,2,3})
+        assert BinarySearchTree([1,2,3]) == BinarySearchTree((1,2,3))
+        assert BinarySearchTree([1,2,3]) == BinarySearchTree([3,2,1])
+        # assert (BinarySearchTree((1,2,3,4,5,5,6,6,7)) ==
+        #         BinarySearchTree((7,6,6,5,5,4,3,2,1)))
+        # assert (BinarySearchTree((1,2,3,4,5,5,6,6,7)) ==
+        #         BinarySearchTree((1,2,3,7,6,1,6,5,5,4,3,2,5,5,1,7)))
+
+    def test_delete(self):
+
+        ## Delete leaf and root
+        bst = BinarySearchTree(['E'])
+        bst.delete('E')
+        assert bst.items_in_order() == []
+
+        ## Delete left leaf
+        bst = BinarySearchTree(['C', 'A', 'B','E'])
+
+        bst.delete('B')
+        assert bst.items_in_order() == ['A', 'C', 'E']
+
+        ## Delete right leaf
+        bst = BinarySearchTree(['A', 'B', 'C', 'E'])
+
+        bst.delete('E')
+        assert bst.items_in_order() == ['A', 'B', 'C']
+
+        ## Delete node with only direct child on left
+        bst = BinarySearchTree(['C', 'B', 'A','E'])
+
+        bst.delete('B')
+        assert bst.items_in_order() == ['A', 'C', 'E']
+
+        ## Delete node with only direct child on right
+        bst = BinarySearchTree(['C', 'A', 'B','E'])
+
+        bst.delete('A')
+        assert bst.items_in_order() == ['B', 'C', 'E']
+
+        ## Delete node with two direct children
+        bst = BinarySearchTree(['D', 'B', 'A', 'C'])
+
+        bst.delete('B')
+        assert bst.items_in_order() == ['A', 'C', 'D', 'E']
+
+
+
+
+
 
 
 if __name__ == '__main__':
