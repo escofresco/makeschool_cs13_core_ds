@@ -125,3 +125,6 @@ class SetTest(unittest.TestCase):
 
         tiny_set.remove(3)
         assert tiny_set.items() == [0,1,2]
+
+        tiny_set.remove(2)
+        assert tiny_set.items() == [0,1]
